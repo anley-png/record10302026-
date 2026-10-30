@@ -18,7 +18,13 @@ jobs:
       url: ${{ steps.d.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir site && cp recorder.html site/index.html
+      - name: Prepare site
+        run: |
+          ls -la
+          mkdir -p site
+          f=$(ls *.html | head -n1)
+          echo "Using $f"
+          cp "$f" site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
